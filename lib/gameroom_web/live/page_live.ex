@@ -3,7 +3,7 @@ defmodule GameroomWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, query: "", results: %{})}
+    {:ok, assign(socket, query: "", results: %{}, my_turn: false, board: [])}
   end
 
   # @impl true

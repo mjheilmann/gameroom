@@ -1,4 +1,8 @@
-# Gameroom
+# GameRoom
+
+GameRoom is a Phoenix Live-view based web service that hosts a series of board and table-top games.
+
+##
 
 To start your Phoenix server:
 
