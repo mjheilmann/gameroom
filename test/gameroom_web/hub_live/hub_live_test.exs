@@ -1,4 +1,4 @@
-defmodule GameroomWeb.PageLiveTest do
+defmodule GameroomWeb.GameHubTest do
   use GameroomWeb.ConnCase
 
   import Phoenix.LiveViewTest

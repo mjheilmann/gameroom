@@ -21,7 +21,4 @@ defmodule GameroomWeb.TicTac.TileComponent do
     <p phx-click="move" phx-target="#<%= @board_id %>" phx-value-position="<%= pos %>">[ ]<p>
     """
   end
-
-
-
 end
