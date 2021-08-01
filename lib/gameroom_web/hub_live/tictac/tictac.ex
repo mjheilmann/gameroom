@@ -1,5 +1,5 @@
 defmodule GameroomWeb.TicTac do
-  use Phoenix.LiveComponent
+  use GameroomWeb, :live_component
 
   @impl true
   def mount(socket) do
@@ -9,7 +9,7 @@ defmodule GameroomWeb.TicTac do
   @impl true
   def render(assigns) do
     ~L"""
-    <div class="" id="<%= @id %>">
+    <div class="" id="tictactoe-<%= @user_id %>">
     <h4>Tic Tac Toe</h4>
       <section class="column">
         <%= for row <- @board.places |> Enum.with_index |> Enum.chunk_every(3) do %>
@@ -25,6 +25,7 @@ defmodule GameroomWeb.TicTac do
       <% else %>
         <p>It is NOT your turn</p>
       <% end %>
+      <%= live_patch "leave", to: Routes.live_path(@socket, GameroomWeb.HubLive, game: nil) %>
     </div>
     """
   end

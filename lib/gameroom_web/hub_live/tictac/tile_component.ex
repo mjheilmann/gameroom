@@ -1,5 +1,5 @@
 defmodule GameroomWeb.TicTac.TileComponent do
-  use Phoenix.LiveComponent
+  use GameroomWeb, :live_component
 
   @impl true
   def render(%{content: {:x, _}} = assigns) do
