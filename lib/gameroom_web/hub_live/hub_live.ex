@@ -18,7 +18,7 @@ defmodule GameroomWeb.HubLive do
   @impl true
   def render(assigns) do
     ~L"""
-    <section class="phx-hero" id="hub-<%= @user.id %>">
+    <section class="phx-hero">
       <%= if is_nil(@user.game) do %>
         <%= live_component GameroomWeb.GameSelector, available_games: @games, user_id: @user.id %>
       <% else %>
@@ -26,12 +26,8 @@ defmodule GameroomWeb.HubLive do
       <% end %>
 
       <p>users: <%= map_size(@users) %></p>
-      <%= for {user_id, user} <- @users do %>
-        <%= if user_id == @user.id do %>
-          <p class="text-xs bg-green-200 rounded px-2 py-1">~~ <%= user.name %> (me) ~~ <%= user.game.name %></p>
-        <% else %>
-          <p class="text-xs bg-blue-200 rounded px-2 py-1">~~ <%= user.name %> ~~ <%= user.game.name %></p>
-        <% end %>
+      <%= for {_, user} <- @users do %>
+        <%= live_component GameroomWeb.PlayerComponent, user: user, my_id: @user.id %>
       <% end %>
     </section>
     """
