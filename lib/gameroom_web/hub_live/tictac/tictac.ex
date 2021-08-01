@@ -9,8 +9,8 @@ defmodule GameroomWeb.TicTac do
   @impl true
   def render(assigns) do
     ~L"""
-    <div class="" id="tictactoe-<%= @user_id %>">
-    <h4>Tic Tac Toe</h4>
+    <div class="" id="<%= @id %>">
+      <h4>Tic Tac Toe</h4>
       <section class="column">
         <%= for row <- @board.places |> Enum.with_index |> Enum.chunk_every(3) do %>
           <article class="row">
