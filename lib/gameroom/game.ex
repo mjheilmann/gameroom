@@ -1,3 +1,3 @@
 defmodule Gameroom.Game do
-  defstruct [:name, :path, :module]
+  defstruct [:name, :path, :module, :lobby]
 end
