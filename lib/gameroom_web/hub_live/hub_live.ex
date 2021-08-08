@@ -16,15 +16,11 @@ defmodule GameroomWeb.HubLive do
     }
   ]
 
-  @impl true
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~L"""
     <section class="phx-hero">
-      <%= if is_nil(@user.game) do %>
-        <%= live_component GameroomWeb.GameSelector, available_games: @games, user_id: @user.id %>
-      <% else %>
-        <%= live_component @user.game.module, id: "game-" <> @user.id, user_id: @user.id %>
-      <% end %>
+      <%= get_content(assigns) %>
 
       <p>online users: <%= map_size(@online_users) %></p>
       <%= for {_, user} <- @online_users do %>
@@ -39,7 +35,26 @@ defmodule GameroomWeb.HubLive do
     """
   end
 
-  @impl true
+  defp get_content(%{user: %{id: user_id, name: nil}}) do
+    live_component(
+      GameroomWeb.PlayerEntry,
+      user_id: user_id,
+      id: "player-entry-" <> user_id
+    )
+  end
+
+  defp get_content(%{user: %{id: user_id, game: nil}, games: games}) do
+    live_component(GameroomWeb.GameSelector,
+      available_games: games,
+      user_id: user_id
+    )
+  end
+
+  defp get_content(%{user: %{id: user_id, game: %Game{} = game}}) do
+    live_component(game.module, id: "game-" <> user_id, user_id: user_id)
+  end
+
+  @impl Phoenix.LiveView
   def handle_params(%{"game" => ""}, _uri, socket) do
     user = change_game_lobby(socket.assigns.user, nil)
 
@@ -60,12 +75,12 @@ defmodule GameroomWeb.HubLive do
 
   def handle_params(_, _, socket), do: {:noreply, socket}
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     user = %Player{
       id: Nanoid.generate(),
       game: nil,
-      name: "wallace",
+      name: nil,
       joined_at: :os.system_time(:seconds)
     }
 
@@ -80,7 +95,7 @@ defmodule GameroomWeb.HubLive do
      |> assign(:lobby_users, %{})}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_info({:subscribe, channel}, %{assigns: %{user: user}} = socket) do
     socket
     |> connected?()
@@ -102,14 +117,14 @@ defmodule GameroomWeb.HubLive do
     end
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_info({:unsubscribe, channel}, %{assigns: %{user: user}} = socket) do
     Presence.untrack(self(), channel, user.id)
     GameroomWeb.Endpoint.unsubscribe(channel)
     {:noreply, assign(socket, :lobby_users, %{})}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_info(:after_join, %{assigns: %{user: user}} = socket) do
     if connected?(socket) do
       {:ok, _} = Presence.track(self(), @presence, user.id, user)
@@ -123,7 +138,19 @@ defmodule GameroomWeb.HubLive do
     end
   end
 
-  @impl true
+  @impl Phoenix.LiveView
+  def handle_info({:set_name, name}, %{assigns: %{user: user}} = socket) do
+    user = %Gameroom.Player{user | name: name}
+    Presence.update(self(), @presence, user.id, user)
+
+    if not is_nil(user.game) do
+      Presence.update(self(), user.game.lobby, user.id, user)
+    end
+
+    {:noreply, assign(socket, :user, user)}
+  end
+
+  @impl Phoenix.LiveView
   def handle_info(
         %Phoenix.Socket.Broadcast{event: "presence_diff", payload: diff, topic: @presence},
         socket
