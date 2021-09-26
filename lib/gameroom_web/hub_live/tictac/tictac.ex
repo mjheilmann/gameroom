@@ -1,9 +1,11 @@
 defmodule GameroomWeb.TicTac do
   use GameroomWeb, :live_component
 
+  alias Gameroom.Games.Tictactoe
+
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, my_turn: false, board: Gameroom.Tictactoe.new_board())}
+    {:ok, assign(socket, my_turn: false, board: Tictactoe.new_board())}
   end
 
   @impl true
@@ -33,7 +35,7 @@ defmodule GameroomWeb.TicTac do
   @impl true
   def handle_event("move", %{"position" => pos}, socket) do
     with {int_pos, _} <- Integer.parse(pos),
-         {:ok, board} <- Gameroom.Tictactoe.move(socket.assigns.board, :x, int_pos) do
+         {:ok, board} <- Tictactoe.move(socket.assigns.board, :x, int_pos) do
       win_or_continue(assign(socket, :board, board))
     else
       _ -> {:noreply, socket}
@@ -41,7 +43,7 @@ defmodule GameroomWeb.TicTac do
   end
 
   def win_or_continue(socket) do
-    if Gameroom.Tictactoe.winner?(socket.assigns.board, :x) do
+    if Tictactoe.winner?(socket.assigns.board, :x) do
       {:noreply, assign(socket, :result, :win)}
     else
       {:noreply, socket}

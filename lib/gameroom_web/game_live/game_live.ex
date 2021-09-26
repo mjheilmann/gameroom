@@ -1,4 +1,4 @@
-defmodule GameroomWeb.HubLive do
+defmodule GameroomWeb.GameLive do
   use GameroomWeb, :live_view
 
   alias GameroomWeb.Presence
@@ -6,6 +6,17 @@ defmodule GameroomWeb.HubLive do
   alias Gameroom.Game
 
   @presence "gameroom:lobby"
+
+  @supported_games [
+    %Game{
+      name: "Tic Tac Toe",
+      path: "tictactoe",
+      module: GameroomWeb.TicTac,
+      lobby: "gameroom:lobby:tictactoe"
+    }
+  ]
+
+  def games(), do: @supported_games
 
   @impl Phoenix.LiveView
   def render(assigns) do
@@ -81,7 +92,7 @@ defmodule GameroomWeb.HubLive do
     {:ok,
      socket
      |> assign(:user, user)
-     |> assign(:games, GameroomWeb.GameLive.games())
+     |> assign(:games, @supported_games)
      |> assign(:online_users, %{user.id => user})
      |> assign(:lobby_users, %{})}
   end

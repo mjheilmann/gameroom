@@ -18,6 +18,7 @@ defmodule GameroomWeb.Router do
     pipe_through :browser
 
     live "/", HubLive
+    live "/:game", GameLive
   end
 
   # Other scopes may use custom stacks.
