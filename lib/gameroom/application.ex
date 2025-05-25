@@ -15,7 +15,8 @@ defmodule Gameroom.Application do
       GameroomWeb.Endpoint,
       # Start a worker by calling: Gameroom.Worker.start_link(arg)
       # {Gameroom.Worker, arg}
-      GameroomWeb.Presence
+      GameroomWeb.Presence,
+      Gameroom.Matchmaker.Dispatch
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
