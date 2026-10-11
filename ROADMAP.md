@@ -21,7 +21,7 @@ If you are picking up this project in a new session:
    Accessible at [`http://localhost:4000`](http://localhost:4000).
 
 3. **Current Active Phase**: **Phase 2 (Modern Real-Time Lobby & Multiplayer Tic-Tac-Toe)**
-   - **Next Task**: Phase 2.1 – Pure Elixir Tic-Tac-Toe game engine (`Gameroom.Games.TicTacToe`) + unit tests.
+   - **Next Task**: Phase 2.2 – Room Process & State Management (`Gameroom.Games.Room` / `Gameroom.Games.RoomSupervisor`).
 
 4. **Engineering Guidelines**:
    - Project engineering rules and Phoenix 1.8 constraints are codified in [`AGENTS.md`](file:///Users/michael/workspace/gameroom/AGENTS.md).
@@ -39,9 +39,9 @@ If you are picking up this project in a new session:
 ---
 
 ### Phase 2: Modern Real-Time Lobby & Multiplayer Tic-Tac-Toe (IN PROGRESS)
-- [ ] **2.1 Game Logic Engine** (`Gameroom.Games.TicTacToe`)
-  - [ ] Implement pure functional game logic: 3×3 grid, turn alternation, legal moves, win & draw checking.
-  - [ ] Comprehensive ExUnit test suite covering horizontal, vertical, diagonal wins, draws, and illegal moves.
+- [x] **2.1 Game Logic Engine** (`Gameroom.Games.TicTacToe`)
+  - [x] Implement pure functional game logic: 3×3 grid, turn alternation, legal moves, win & draw checking.
+  - [x] Comprehensive ExUnit test suite covering horizontal, vertical, diagonal wins, draws, and illegal moves.
 - [ ] **2.2 Room Process & State Management** (`Gameroom.Games.Room` / `Gameroom.Games.RoomSupervisor`)
   - [ ] Dynamic GenServer per active game room using `DynamicSupervisor` and `Registry`.
   - [ ] Support two players (X and O) + spectator mode.
