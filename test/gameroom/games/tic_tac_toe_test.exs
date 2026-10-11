@@ -384,6 +384,31 @@ defmodule Gameroom.Games.TicTacToeTest do
       assert TicTacToe.next_player(:o) == :x
     end
 
+    test "player_roles/0 returns the valid player atoms" do
+      assert TicTacToe.player_roles() == [:x, :o]
+    end
+
+    test "current_player/1 tracks whose turn it is and returns nil when game is over" do
+      game = TicTacToe.new_game()
+      assert TicTacToe.current_player(game) == :x
+
+      {:ok, game} = TicTacToe.apply_move(game, {0, 0})
+      assert TicTacToe.current_player(game) == :o
+
+      # Finish the game with a win
+      game =
+        game
+        |> play_moves([
+          {:o, {1, 0}},
+          {:x, {0, 1}},
+          {:o, {1, 1}},
+          {:x, {0, 2}}
+        ])
+
+      assert TicTacToe.game_over?(game)
+      assert TicTacToe.current_player(game) == nil
+    end
+
     test "render_ascii/1 formats the board state" do
       game =
         TicTacToe.new_game()

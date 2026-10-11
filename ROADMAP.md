@@ -44,7 +44,8 @@ If you are picking up this project in a new session:
   - [x] Comprehensive ExUnit test suite covering horizontal, vertical, diagonal wins, draws, and illegal moves.
 - [ ] **2.2 Room Process & State Management** (`Gameroom.Games.Room` / `Gameroom.Games.RoomSupervisor`)
   - [ ] Dynamic GenServer per active game room using `DynamicSupervisor` and `Registry`.
-  - [ ] Support two players (X and O) + spectator mode.
+  - [ ] Game-driven player seats (e.g. 2 players for Tic-Tac-Toe: X and O) + spectator mode.
+  - [ ] Game-agnostic "whose turn is it" tracking and client reporting (delegates turn queries to the game module).
   - [ ] PubSub broadcast on game state changes, player joins/leaves, and game termination.
   - [ ] Automatic room cleanup on idle/timeout.
 - [ ] **2.3 Real-Time Hub / Lobby** (`GameroomWeb.HubLive`)
@@ -67,7 +68,9 @@ If you are picking up this project in a new session:
 ### Phase 3: Extensible Multi-Game Platform Engine
 - [ ] **3.1 `Gameroom.Games.Engine` Behaviour**
   - [ ] Define standardized callbacks:
+    - `@callback player_roles() :: [atom()]` (e.g. `[:x, :o]`, variable player counts)
     - `@callback new_game(opts :: keyword()) :: game_state()`
+    - `@callback current_player(game_state()) :: atom() | nil` (whose turn it is for client reporting; `nil` if over)
     - `@callback valid_move?(game_state(), player(), move()) :: boolean()`
     - `@callback apply_move(game_state(), player(), move()) :: {:ok, game_state()} | {:error, term()}`
     - `@callback game_status(game_state()) :: :in_progress | {:winner, player()} | :draw`
@@ -108,5 +111,8 @@ If you are picking up this project in a new session:
   - CSS resides in `assets/css/app.css` using the `@import "tailwindcss" source(none);` syntax.
   - Do not use `@apply` in raw CSS.
   - Build custom Tailwind components without daisyUI for clean, bespoke UI.
+- **Game Engine vs. Room Responsibilities**:
+  - Turn progression, player count, seat roles, skips/reversals, and victory conditions are strictly owned by each game module (`Gameroom.Games.*`).
+  - Room GenServers and LiveView clients are game-rule agnostic: they delegate turn verification and "whose turn is it" queries to the game module (`current_player/1`, `valid_move?/3`), avoiding hardcoded 2-player or ping-pong assumptions.
 - **Verification**:
   - Always run `mix precommit` before completing any phase.

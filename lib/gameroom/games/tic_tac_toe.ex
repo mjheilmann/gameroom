@@ -47,6 +47,12 @@ defmodule Gameroom.Games.TicTacToe do
   ]
 
   @doc """
+  Returns the list of valid player roles for this game.
+  """
+  @spec player_roles() :: [player()]
+  def player_roles, do: [:x, :o]
+
+  @doc """
   Creates a new Tic-Tac-Toe game.
 
   ## Options
@@ -158,6 +164,14 @@ defmodule Gameroom.Games.TicTacToe do
   """
   @spec game_status(t()) :: status()
   def game_status(%__MODULE__{status: status}), do: status
+
+  @doc """
+  Returns the player whose turn it currently is, or `nil` if the game is over.
+  Useful for client reporting and UI turn indicators.
+  """
+  @spec current_player(t()) :: player() | nil
+  def current_player(%__MODULE__{status: :in_progress, current_player: player}), do: player
+  def current_player(%__MODULE__{}), do: nil
 
   @doc """
   Returns true if the game is finished (winner or draw).
