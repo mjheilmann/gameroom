@@ -23,8 +23,7 @@ If you are picking up this project in a new session:
 3. **Current Active Phase**: **Phase 2 (Modern Real-Time Lobby & Multiplayer Tic-Tac-Toe)**
    - **Next Task**: Phase 2.1 – Pure Elixir Tic-Tac-Toe game engine (`Gameroom.Games.TicTacToe`) + unit tests.
 
-4. **Reference Code**:
-   - The historical Phoenix 1.5/1.6 code is preserved under [`archive/`](file:///Users/michael/workspace/gameroom/archive) for reference (e.g. [`archive/lib/gameroom/tictactoe/tictactoe.ex`](file:///Users/michael/workspace/gameroom/archive/lib/gameroom/tictactoe/tictactoe.ex)).
+4. **Engineering Guidelines**:
    - Project engineering rules and Phoenix 1.8 constraints are codified in [`AGENTS.md`](file:///Users/michael/workspace/gameroom/AGENTS.md).
 
 ---
@@ -34,7 +33,6 @@ If you are picking up this project in a new session:
 ### Phase 1: Clean Baseline & Tooling Upgrade (COMPLETED)
 - [x] Upgrade foundation to Phoenix 1.8.1, LiveView 1.1.0, Bandit, and SQLite3 (`ecto_sqlite3`).
 - [x] Configure Tailwind CSS v4 assets bundle.
-- [x] Archive legacy 2021 codebase in [`archive/`](file:///Users/michael/workspace/gameroom/archive) to preserve history and logic.
 - [x] Clean up `.DS_Store`, orphan directories, and configure [`.gitignore`](file:///Users/michael/workspace/gameroom/.gitignore) for SQLite databases.
 - [x] Establish `mix precommit` workflow with clean compilation and passing baseline tests.
 
@@ -42,7 +40,7 @@ If you are picking up this project in a new session:
 
 ### Phase 2: Modern Real-Time Lobby & Multiplayer Tic-Tac-Toe (IN PROGRESS)
 - [ ] **2.1 Game Logic Engine** (`Gameroom.Games.TicTacToe`)
-  - [ ] Port pure functional logic from legacy archive: 3×3 grid, turn management, legal moves, win/draw checking.
+  - [ ] Implement pure functional game logic: 3×3 grid, turn alternation, legal moves, win & draw checking.
   - [ ] Comprehensive ExUnit test suite covering horizontal, vertical, diagonal wins, draws, and illegal moves.
 - [ ] **2.2 Room Process & State Management** (`Gameroom.Games.Room` / `Gameroom.Games.RoomSupervisor`)
   - [ ] Dynamic GenServer per active game room using `DynamicSupervisor` and `Registry`.
