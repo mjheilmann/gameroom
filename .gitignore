@@ -35,6 +35,9 @@ gameroom-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Elixir Language Server Caches
+.dexter
+
 # Database files
 *.db
 *.db-*
