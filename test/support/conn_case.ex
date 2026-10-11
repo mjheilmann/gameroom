@@ -19,19 +19,20 @@ defmodule GameroomWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint GameroomWeb.Endpoint
+
+      use GameroomWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import GameroomWeb.ConnCase
-
-      alias GameroomWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint GameroomWeb.Endpoint
     end
   end
 
-  setup _tags do
+  setup tags do
+    Gameroom.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

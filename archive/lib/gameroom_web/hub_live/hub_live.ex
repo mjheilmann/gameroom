@@ -140,7 +140,7 @@ defmodule GameroomWeb.HubLive do
 
   @impl Phoenix.LiveView
   def handle_info({:set_name, name}, %{assigns: %{user: user}} = socket) do
-    user = %Gameroom.Player{user | name: name}
+    user = %{user | name: name}
     Presence.update(self(), @presence, user.id, user)
 
     if not is_nil(user.game) do
