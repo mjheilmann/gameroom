@@ -21,7 +21,7 @@ If you are picking up this project in a new session:
    Accessible at [`http://localhost:4000`](http://localhost:4000).
 
 3. **Current Active Phase**: **Phase 2 (Modern Real-Time Lobby & Multiplayer Tic-Tac-Toe)**
-   - **Next Task**: Phase 2.2 – Room Process & State Management (`Gameroom.Games.Room` / `Gameroom.Games.RoomSupervisor`).
+   - **Next Task**: Phase 2.3 – Real-Time Hub / Lobby (`GameroomWeb.HubLive`).
 
 4. **Engineering Guidelines**:
    - Project engineering rules and Phoenix 1.8 constraints are codified in [`AGENTS.md`](file:///Users/michael/workspace/gameroom/AGENTS.md).
@@ -42,12 +42,12 @@ If you are picking up this project in a new session:
 - [x] **2.1 Game Logic Engine** (`Gameroom.Games.TicTacToe`)
   - [x] Implement pure functional game logic: 3×3 grid, turn alternation, legal moves, win & draw checking.
   - [x] Comprehensive ExUnit test suite covering horizontal, vertical, diagonal wins, draws, and illegal moves.
-- [ ] **2.2 Room Process & State Management** (`Gameroom.Games.Room` / `Gameroom.Games.RoomSupervisor`)
-  - [ ] Dynamic GenServer per active game room using `DynamicSupervisor` and `Registry`.
-  - [ ] Game-driven player seats (e.g. 2 players for Tic-Tac-Toe: X and O) + spectator mode.
-  - [ ] Game-agnostic "whose turn is it" tracking and client reporting (delegates turn queries to the game module).
-  - [ ] PubSub broadcast on game state changes, player joins/leaves, and game termination.
-  - [ ] Automatic room cleanup on idle/timeout.
+- [x] **2.2 Room Process & State Management** (`Gameroom.Games.Room` / `Gameroom.Games.RoomSupervisor`)
+  - [x] Dynamic GenServer per active game room using `DynamicSupervisor` and `Registry`.
+  - [x] Game-driven player seats (e.g. 2 players for Tic-Tac-Toe: X and O) + spectator mode.
+  - [x] Game-agnostic "whose turn is it" tracking and client reporting (delegates turn queries to the game module).
+  - [x] PubSub broadcast on game state changes, player joins/leaves, and game termination.
+  - [x] Automatic room cleanup on idle/timeout.
 - [ ] **2.3 Real-Time Hub / Lobby** (`GameroomWeb.HubLive`)
   - [ ] Player presence tracking using `Phoenix.Presence` (online count, active players).
   - [ ] Fast player nickname selection (stored in session/cookie or guest state).
@@ -59,7 +59,7 @@ If you are picking up this project in a new session:
   - [ ] Win line visual highlighting and draw celebration/rematch action.
   - [ ] One-click "Copy Invite Link" for instant 2-player matchmaking.
 - [ ] **2.5 Automated Test Coverage**
-  - [ ] ExUnit tests for `Room` GenServer lifecycle and edge cases.
+  - [x] ExUnit tests for `Room` GenServer lifecycle and edge cases.
   - [ ] `Phoenix.LiveViewTest` tests for Lobby navigation, nickname entry, room creation, and move play.
   - [ ] Run `mix precommit` clean check.
 
