@@ -31,39 +31,43 @@ defmodule GameroomWeb.Layouts do
     default: nil,
     doc: "the current [scope](https://hexdocs.pm/phoenix/scopes.html)"
 
+  attr :container_class, :string,
+    default: "mx-auto max-w-6xl space-y-6",
+    doc: "the container class for main inner content"
+
   slot :inner_block, required: true
 
   def app(assigns) do
     ~H"""
-    <header class="navbar px-4 sm:px-6 lg:px-8">
-      <div class="flex-1">
-        <a href="/" class="flex-1 flex w-fit items-center gap-2">
-          <img src={~p"/images/logo.svg"} width="36" />
-          <span class="text-sm font-semibold">v{Application.spec(:phoenix, :vsn)}</span>
-        </a>
-      </div>
-      <div class="flex-none">
-        <ul class="flex flex-column px-1 space-x-4 items-center">
-          <li>
-            <a href="https://phoenixframework.org/" class="btn btn-ghost">Website</a>
-          </li>
-          <li>
-            <a href="https://github.com/phoenixframework/phoenix" class="btn btn-ghost">GitHub</a>
-          </li>
-          <li>
-            <.theme_toggle />
-          </li>
-          <li>
-            <a href="https://hexdocs.pm/phoenix/overview.html" class="btn btn-primary">
-              Get Started <span aria-hidden="true">&rarr;</span>
-            </a>
-          </li>
-        </ul>
+    <header class="border-b border-base-200 bg-base-100/90 backdrop-blur sticky top-0 z-40 px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <.link navigate={~p"/"} class="flex items-center gap-2.5 group">
+            <div class="size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-black group-hover:scale-105 transition-transform shadow-xs">
+              <.icon name="hero-puzzle-piece" class="size-6" />
+            </div>
+            <div>
+              <span class="text-lg font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                GameRoom
+              </span>
+              <span class="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                Multiplayer Live
+              </span>
+            </div>
+          </.link>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <.link navigate={~p"/"} class="btn btn-ghost btn-sm text-sm font-medium">
+            <.icon name="hero-squares-2x2" class="size-4 mr-1" /> Lobby
+          </.link>
+          <.theme_toggle />
+        </div>
       </div>
     </header>
 
-    <main class="px-4 py-20 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl space-y-4">
+    <main class="px-4 py-8 sm:px-6 lg:px-8">
+      <div class={@container_class}>
         {render_slot(@inner_block)}
       </div>
     </main>

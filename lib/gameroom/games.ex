@@ -110,6 +110,7 @@ defmodule Gameroom.Games do
 
           _ ->
             %{
+              id: room_id,
               room_id: room_id,
               status: :waiting,
               player_count: 0,
@@ -236,5 +237,16 @@ defmodule Gameroom.Games do
     noun = Enum.random(@nouns)
     num = :rand.uniform(90) + 9
     "#{adj}-#{noun}-#{num}"
+  end
+
+  @doc """
+  Generates a friendly default player nickname (e.g. `\"CosmicFalcon42\"`).
+  """
+  @spec generate_player_name() :: String.t()
+  def generate_player_name do
+    adj = Enum.random(@adjectives) |> String.capitalize()
+    noun = Enum.random(@nouns) |> String.capitalize()
+    num = :rand.uniform(90) + 9
+    "#{adj}#{noun}#{num}"
   end
 end

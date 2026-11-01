@@ -8,6 +8,7 @@ defmodule GameroomWeb.Router do
     plug :put_root_layout, html: {GameroomWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug GameroomWeb.Plugs.GuestSession
   end
 
   pipeline :api do
@@ -17,7 +18,10 @@ defmodule GameroomWeb.Router do
   scope "/", GameroomWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HubLive, :index
+    live "/lobby", HubLive, :index
+    live "/games/:room_id", GameLive, :show
+    get "/welcome", PageController, :home
   end
 
   # Other scopes may use custom stacks.

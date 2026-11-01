@@ -309,6 +309,7 @@ defmodule Gameroom.Games.Room do
       end
 
     %{
+      id: room.room_id,
       room_id: room.room_id,
       game_module: room.game_module,
       status: room.status,

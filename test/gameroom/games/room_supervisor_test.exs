@@ -56,4 +56,3 @@ defmodule Gameroom.Games.RoomSupervisorTest do
     end
   end
 end
-

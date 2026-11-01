@@ -25,11 +25,23 @@ import {LiveSocket} from "phoenix_live_view"
 import {hooks as colocatedHooks} from "phoenix-colocated/gameroom"
 import topbar from "../vendor/topbar"
 
+const NicknameStorage = {
+  mounted() {
+    const stored = localStorage.getItem("gameroom_nickname")
+    if (stored) {
+      this.pushEvent("restore_nickname", { nickname: stored })
+    }
+    this.handleEvent("save_nickname", ({ nickname }) => {
+      localStorage.setItem("gameroom_nickname", nickname)
+    })
+  }
+}
+
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: {_csrf_token: csrfToken},
-  hooks: {...colocatedHooks},
+  hooks: {NicknameStorage, ...colocatedHooks},
 })
 
 // Show progress bar on live navigation and form submits

@@ -14,6 +14,7 @@ defmodule Gameroom.Application do
        repos: Application.fetch_env!(:gameroom, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:gameroom, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Gameroom.PubSub},
+      GameroomWeb.Presence,
       {Registry, keys: :unique, name: Gameroom.Games.RoomRegistry},
       {DynamicSupervisor, name: Gameroom.Games.RoomSupervisor, strategy: :one_for_one},
       # Start a worker by calling: Gameroom.Worker.start_link(arg)

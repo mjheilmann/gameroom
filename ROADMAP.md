@@ -21,7 +21,7 @@ If you are picking up this project in a new session:
    Accessible at [`http://localhost:4000`](http://localhost:4000).
 
 3. **Current Active Phase**: **Phase 2 (Modern Real-Time Lobby & Multiplayer Tic-Tac-Toe)**
-   - **Next Task**: Phase 2.3 – Real-Time Hub / Lobby (`GameroomWeb.HubLive`).
+   - **Next Task**: Phase 2.4 – Modern LiveView Game UI (`GameroomWeb.GameLive`).
 
 4. **Engineering Guidelines**:
    - Project engineering rules and Phoenix 1.8 constraints are codified in [`AGENTS.md`](file:///Users/michael/workspace/gameroom/AGENTS.md).
@@ -48,11 +48,11 @@ If you are picking up this project in a new session:
   - [x] Game-agnostic "whose turn is it" tracking and client reporting (delegates turn queries to the game module).
   - [x] PubSub broadcast on game state changes, player joins/leaves, and game termination.
   - [x] Automatic room cleanup on idle/timeout.
-- [ ] **2.3 Real-Time Hub / Lobby** (`GameroomWeb.HubLive`)
-  - [ ] Player presence tracking using `Phoenix.Presence` (online count, active players).
-  - [ ] Fast player nickname selection (stored in session/cookie or guest state).
-  - [ ] Active game rooms browser with live status (waiting for player 2, in progress, finished).
-  - [ ] "Create New Game" quick-action with customizable room code/slug.
+- [x] **2.3 Real-Time Hub / Lobby** (`GameroomWeb.HubLive`)
+  - [x] Player presence tracking using `Phoenix.Presence` (online count, active players).
+  - [x] Fast player nickname selection (stored in session/cookie or guest state).
+  - [x] Active game rooms browser with live status (waiting for player 2, in progress, finished).
+  - [x] "Create New Game" quick-action with customizable room code/slug.
 - [ ] **2.4 Modern LiveView Game UI** (`GameroomWeb.GameLive`)
   - [ ] Wraps template with `<Layouts.app flash={@flash} ...>`.
   - [ ] Responsive Tailwind v4 grid with clear player turns, hover micro-interactions, and status banners.
@@ -60,7 +60,7 @@ If you are picking up this project in a new session:
   - [ ] One-click "Copy Invite Link" for instant 2-player matchmaking.
 - [ ] **2.5 Automated Test Coverage**
   - [x] ExUnit tests for `Room` GenServer lifecycle and edge cases.
-  - [ ] `Phoenix.LiveViewTest` tests for Lobby navigation, nickname entry, room creation, and move play.
+  - [x] `Phoenix.LiveViewTest` tests for Lobby navigation, nickname entry, room creation, and move play.
   - [ ] Run `mix precommit` clean check.
 
 ---
